@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <!-- Bootstrap CSS -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous"
+        />
+        <!-- <link href="templates/" rel="stylesheet" type="text/css" /> -->
+        <title>Song App</title>
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: 'Roboto', sans-serif;
+                background-color: #A0DAA9;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+    
+            }
+    
+            .LoginForm {
+                width: 70%;
+                height: auto;
+                margin: 10% auto;
+                padding: 1%;
+    
+            }
+    
+            .song {
+                padding: 1%;
+            }
+            .audio-control {
+  width: 100%;
+}
+.dark {
+    background-color: #27282b;
+    color: #b71b1b;
+}
+        </style>
+    </head>
+    <body>
+        <!--Navigation Bar-->
+  
+<!--End of Navigation Bar-->
+<!--SONGS CARDS-->
+<h1 class="text-center">ADMIN CONTROLS</h1>
+<div class="container text-center">
+    <div class="row align-items-left">
+      <div class="col">
+        <h2>Users</h2>
+        <ol class="list-group list-group-numbered">
+            {%for user in users%}
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+              <div class="ms-2 me-auto">
+                <div class="fw-bold">{{user.name}}</div>
+                <a  href="/user/{{user.id}}/delete" class="text-center">Delete</a>
+              </div>
+              <span class="badge bg-primary rounded-pill"></span>
+            </li>
+            {% endfor %}
+          </ol>
+      </div>
+      <div class="col">
+        <h2>Creators</h2>
+        <ol class="list-group list-group-numbered">
+            {%for creator in creators%}
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+              <div class="ms-2 me-auto">
+                <div class="fw-bold">{{creator.name}}
+                  {%if creator.allow == 1%}
+                  <p>Allowed</p>
+                  {%else%}
+                  <p>Not Allowed</p>
+                  {%endif%}
+                </div>
+                <a  href="/creator/{{creator.id}}/delete" class="button" class="btn btn-primary">Delete</a>
+                <a  href="/creator/{{creator.id}}/Blacklist" class="button" class="btn btn-primary">Blacklist</a>
+                <a  href="/creator/{{creator.id}}/Allow" class="button" class="btn btn-primary">Allow</a>
+              </div>
+              <span class="badge bg-primary rounded-pill"></span>
+            </li>
+            {%endfor%}
+          </ol>
+      </div>
+      <div class="col">
+        <h2>Songs</h2>
+        <ol class="list-group list-group-numbered">
+            {%for song in songs%}
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+              <div class="ms-2 me-auto">
+                <div class="fw-bold">{{song.name}}</div>
+                <a  href="/song/{{song.id}}/delete" class="button" class="btn btn-primary">Delete</a>
+
+              </div>
+              <span class="badge bg-primary rounded-pill"></span>
+            </li>
+            {%endfor%}
+          </ol>
+      </div>
+    </div>
+  </div>
+
+
+ 
+<!--END OF SONGS CARDS-->
+<div class="fixed-center text-center sticky-xl-bottom"><img src="/static/songcount.png"></div>
+
+<div class="fixed-bottom text-center sticky-xl-bottom"><a href="/home/admin"><h1>Go Back To Home </h1></a></div>
+
+       
+
+        <!-- Optional JavaScript; choose one of the two! -->
+
+        <!-- Option 1: Bootstrap Bundle with Popper -->
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"
+        ></script>
+
+        <!-- Option 2: Separate Popper and Bootstrap JS -->
+        <!--
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+            integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+            integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+            crossorigin="anonymous"></script>
+        -->
+    </body>
+</html>

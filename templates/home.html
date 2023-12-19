@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <!-- Bootstrap CSS -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous"
+        />
+        <!-- <link href="templates/" rel="stylesheet" type="text/css" /> -->
+        <title>Song App</title>
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: 'Roboto', sans-serif;
+                background-color: #A0DAA9;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+    
+            }
+    
+            .LoginForm {
+                width: 70%;
+                height: auto;
+                margin: 10% auto;
+                padding: 1%;
+    
+            }
+    
+            .song {
+                padding: 1%;
+            }
+            .audio-control {
+  width: 100%;
+}
+.dark {
+    background-color: #27282b;
+    color: #b71b1b;
+}
+        </style>
+    </head>
+    <body>
+        <!--Navigation Bar-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <h1>{{username}} {{type}}</h1>
+    {%if type == 'user'%}
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/albums">Albums</a>
+          <a class="nav-link active" aria-current="page" href="/playlist/{{id}}/create">Create Playlist</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/creators/{{id}}">Creators</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="/aboutus">About us</a></li>
+            <li><a class="dropdown-item" href="/playlist/{{id}}">Playlist</a></li>
+            <li><a class="dropdown-item" href="/profile/{{id}}">Profile</a></li>
+            <li><a class="dropdown-item" href="/">Register or login as creator</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="/">Log out</a></li>
+          </ul>
+        </li>
+      </ul>
+      <form class="d-flex" action="/home/{{id}}/search" method="POST">
+        <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" id="search" name="search">
+        <button class="btn btn-outline-success mt-3" type="submit">Search</button>
+      </form>
+     
+    </div>
+  </div>
+</nav>
+{% elif type == 'creator' %}
+<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="/album/{{id}}/add">Albums</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/home/creator/{{id}}/add">Add Songs</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Dropdown
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <li><a class="dropdown-item" href="/aboutus">About us</a></li>
+          <li><a class="dropdown-item" href="/songs/{{id}}">My Songs</a></li>
+          <li><a class="dropdown-item" href="/albums/{{id}}">My albums</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="/">Log out</a></li>
+        </ul>
+      </li>
+    </ul>
+    <!-- <form class="d-flex" action="/home/search">
+      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success mt-3" type="submit">Search</button>
+    </form> -->
+   
+  </div>
+</div>
+</nav>
+{% elif type == 'Admin' %}
+<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <!-- <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="/">Albums</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Users</a>
+      </li> -->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Dropdown
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <li><a class="dropdown-item" href="/aboutus">About us</a></li>
+          <li><a class="dropdown-item" href="/home/admin/controls">Dashboard</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="/">Log out</a></li>
+        </ul>
+      </li>
+    </ul>
+    <!-- <form class="d-flex">
+      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success mt-3" type="submit">Search</button>
+    </form> -->
+   
+  </div>
+</div>
+</nav>
+{%endif%}
+<!--End of Navigation Bar-->
+<!--SONGS CARDS-->
+
+<div class="song row">
+   {% for song in songs %}
+    <div class="card col-md-4 mt-aoto dark" style="width: 18rem;">
+    <img src="{{song.image}}" class="card-img-top" alt="...">
+    <div class="card-body">
+        <h5 class="card-title">{{song.title}}</h5>
+        <p class="card-text">{{song.artist}}</p>
+        <p class="card-text">{{song.lyrics}}</p>
+        <p class="card-text">{{song.rate}}</p>
+        <audio controls class="audio-control">
+            <source src="/{{song.path}}" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        {%if type == 'user'%}
+        <form method="POST" action="/home/user/{{id}}/{{song.id}}/rate">
+          <p>Rate the song from 0 to 10</p>
+          <input type="number" class="form-control" id="rate" name="rate" required />
+          <input type="submit" value="submit" class="btn btn-info">
+        </form>
+
+        {%endif%}
+    </div>
+    </div>
+{%endfor%}
+ 
+<!--END OF SONGS CARDS-->
+
+
+       
+
+        <!-- Optional JavaScript; choose one of the two! -->
+
+        <!-- Option 1: Bootstrap Bundle with Popper -->
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"
+        ></script>
+
+        <!-- Option 2: Separate Popper and Bootstrap JS -->
+        <!--
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+            integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+            integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+            crossorigin="anonymous"></script>
+        -->
+    </body>
+</html>
